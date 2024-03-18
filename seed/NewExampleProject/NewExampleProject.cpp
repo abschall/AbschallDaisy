@@ -10,7 +10,13 @@ Switch filterSelectButton;
 
 string filterState;
 float samplerate;
+const int UINT_16_MAX = 65536;
 
+enum AdcChannel {
+    ADC_CHANNEL_FREQ_KNOB,
+    ADC_CHANNEL_Q_KNOB,
+    NUM_ADC_CHANNELS
+}
 
 /// @brief prepares the Hardware (pots, buttons, adc and dac)
 void prepareHardware()
@@ -24,20 +30,26 @@ void prepareHardware()
 	samplerate = hardware.AudioSampleRate();
 
 	// Create an ADC configuration
-    AdcChannelConfig adcConfig[2];
-	//Add pin 21 as an analog input in this config. We'll use this to read the knob
+    AdcChannelConfig adcConfig[NUM_ADC_CHANNELS];
 	// set cut-off frequency and Q-factor  pots
-	adcConfig[0].InitSingle(hardware.GetPin(21));
-	adcConfig[1].InitSingle(hardware.GetPin(17));
+    adcConfig[ADC_CHANNEL_FREQ_KNOB].InitSingle(A0);
+    adcConfig[ADC_CHANNEL_Q_KNOB].InitSingle(A1);
+    hardware.adc.Init(&adcConfig,NUM_ADC_CHANNELS);   
+
     //set filter select button
-	filterSelectButton.Init(hardware.GetPin(19),samplerate / 48.0f);
-	hardware.adc.Init(adcConfig, 2);
+	filterSelectButton.Init(A2,samplerate / 48.0f);
+	// Here set the rest of the hardware 
 
 }
 
-/// @brief prepares the DSP algorithm parametric parameters
-/// @param samplerate 
+float rangeConversion(int x, float maxValue, float minValue, int numBits = UINT_16_MAX)
+{
+	auto increment = (maxValue - minValue);
+	return minValue + x * increment;
+}
 
+
+/// @brief process the filterSelectButton's function, switches the filter Type when pressed 
 void processFilterSelectButton()
 {
 	static unsigned int buttonState = 0; 
@@ -62,13 +74,14 @@ void processFilterSelectButton()
 	}
 }
 
+/// @brief prepares the DSP algorithm parametric parameters
+/// @param samplerate 
 void prepareToPlay(float samplerate)
 {
-	float initalFrequency = 10.0f;
+	float initalFrequency = rangeConversion(0, 20000.0f, 50.0f);
 	filter.setFilterType(filterState);
 	filter.setCoefficients(initalFrequency,1.0,samplerate);
 }
-
 
 /// @brief processes the audio block
 /// @param in 
@@ -78,7 +91,9 @@ void processAudioBlock(AudioHandle::InputBuffer in, AudioHandle::OutputBuffer ou
 {
 	processFilterSelectButton();
 	filter.setFilterType(filterState);
-	filter.setCoefficients(hardware.adc.GetFloat(0)*20000 + 50 , hardware.adc.GetFloat(1)*20+0.5, samplerate);
+	filter.setCoefficients(rangeConversion(hardware.adc.GetFloat(ADC_CHANNEL_FREQ_KNOB), 20000.0f, 50.0f),
+	 rangeConversion(hardware.adc.GetFloat(ADC_CHANNEL_Q_KNOB), 20000.0f, 50.0f),
+	 samplerate);
 
 	for (size_t i = 0; i < size; i++)
 	{
