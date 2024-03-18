@@ -131,3 +131,12 @@ MyProjects/
 .cortex-debug.registers.state.json
 .cortex-debug.peripherals.state.json
 
+seed/**/build/
+
+seed/**/*.lst
+seed/**/*.bin
+seed/**/*.bin
+seed/**/*.d
+seed/**/*.elf
+seed/**/*.hex
+seed/**/*.lst
