@@ -34,7 +34,7 @@ struct OscillatorParameters
     double oscillatorFrequency_Hz;
 };
 
-class Phasor
+class Phaso
 {
 
 public:
@@ -100,7 +100,7 @@ struct LFOSignalOutput
 };
 
 
-class LFO : private Phasor
+class LFO : private Phaso
 {
 
 public:
@@ -172,8 +172,8 @@ public:
 
 private:
     double currentSampleRate;
-    Phasor phasorNormal;
-    Phasor phasorQuarterPhase;
+    Phaso phasorNormal;
+    Phaso phasorQuarterPhase;
 
     // Oscillator parameters
     OscillatorParameters oscillatorParameters;

@@ -17,7 +17,7 @@ template <typename T>
 class CircularBuffer
 {
 public:
-    double doLinearInterpolation(double y1, double y2, double fractional_X)
+    float doLinearInterpolation(float y1, float y2, float fractional_X)
     {
         if (fractional_X >= 1.0)return y2;
 
@@ -57,12 +57,12 @@ public:
 
     void flush()
     {
-        for (auto i = 0; i < bufferLength; ++i)
+        for (unsigned int i = 0; i < bufferLength; ++i)
         {
             writeBuffer(0.0f);
         }
     }
-    T readBuffer(double delayInFractionalSamples, bool interpolate = true)
+    T readBuffer(float delayInFractionalSamples, bool interpolate = true)
     {
         T y1 = readBuffer((unsigned int)delayInFractionalSamples);
 
@@ -70,7 +70,7 @@ public:
             return y1;
         T y2 = readBuffer((unsigned int)delayInFractionalSamples + 1);
 
-        double fraction = delayInFractionalSamples - (int)delayInFractionalSamples;
+        float fraction = delayInFractionalSamples - (int)delayInFractionalSamples;
 
         return doLinearInterpolation(y1, y2, fraction);
     }

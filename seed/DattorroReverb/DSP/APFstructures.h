@@ -4,9 +4,9 @@
 #include "lfo.h"		
 struct delayLineParameters
 {
-	double delayTime_ms = 0.0;
+	float delayTime_ms = 0.0;
 	bool enableDelay = false;
-	double delayTime_samples = 0.0;
+	float delayTime_samples = 0.0;
 };
 
 /// <summary>
@@ -30,7 +30,7 @@ public:
 	/// also sets the delay time in number of samples according to the sample rate 
 	/// </summary>
 	/// <param name="pSampleRate"></param>
-	void createDelayBuffer(double pSampleRate) 
+	void createDelayBuffer(float pSampleRate) 
 	{
 		currentSampleRate = pSampleRate;
 		samplesPerMsec = currentSampleRate / 1000.0;
@@ -71,18 +71,18 @@ public:
 
 protected:
 	delayLineParameters parameters;
-	double currentSampleRate;
+	float currentSampleRate;
 	CircularBuffer delayBuffer;
-	double samplesPerMsec;
+	float samplesPerMsec;
 };
 
 
 struct CombFilterParameters
 {
-	double delayTime_ms = 0.0;
-	double feedbackGain = 0.0;
+	float delayTime_ms = 0.0;
+	float feedbackGain = 0.0;
 	bool enableComb = false;
-	double delayTime_samples = 0.0;
+	float delayTime_samples = 0.0;
 };
 
 /// <summary>
@@ -110,7 +110,7 @@ public:
 	/// also sets the delay time in number of samples according to the sample rate 
 	/// </summary>
 	/// <param name="pSampleRate"></param>
-	void createDelayBuffer(double pSampleRate)
+	void createDelayBuffer(float pSampleRate)
 	{
 		currentSampleRate = pSampleRate;
 		samplesPerMsec = currentSampleRate / 1000.0;
@@ -153,17 +153,17 @@ public:
 	}
 protected:
 	CombFilterParameters parameters;
-	double currentSampleRate;
-	double samplesPerMsec;
+	float currentSampleRate;
+	float samplesPerMsec;
 	CircularBuffer delayBuffer;
 };
 
 struct APFParameters
 {
-	double delayTime_ms = 0.0;
-	double feedbackGain = 0.0;
+	float delayTime_ms = 0.0;
+	float feedbackGain = 0.0;
 	bool enableAPF = false;
-	double delayTime_samples;
+	float delayTime_samples;
 };
 
 /// <summary>
@@ -188,7 +188,7 @@ public:
 	/// also sets the delay time in number of samples according to the sample rate 
 	/// </summary>
 	/// <param name="pSampleRate"></param>
-	virtual void createDelayBuffer(double pSampleRate)
+	virtual void createDelayBuffer(float pSampleRate)
 	{
 		currentSampleRate = pSampleRate;
 		samplesPerMsec = currentSampleRate / 1000.0;
@@ -230,8 +230,8 @@ public:
 	}
 protected:
 	APFParameters parameters; //change parameters by apfParameters 
-	double currentSampleRate;
-	double samplesPerMsec;
+	float currentSampleRate;
+	float samplesPerMsec;
 	CircularBuffer delayBuffer;
 };
 
@@ -261,16 +261,16 @@ public:
 
 struct APF_modulationParameters
 {
-	double LFORate_Hz = 0.0;
-	double excursion_ms = 0.0;
+	float LFORate_Hz = 0.0;
+	float excursion_ms = 0.0;
 	bool enableLFO = true;
-	double excursion_samples;
+	float excursion_samples;
 };
 
 class alternateAllPassFilter_modulated : public allPassFilter
 {
 public:
-	void reset(double pSampleRate)
+	void reset(float pSampleRate)
 	{
 		currentSampleRate = pSampleRate;
 		lfo.reset(currentSampleRate);
@@ -286,7 +286,7 @@ public:
 		lfo.setParameters(lfoParams);
 	}
 
-	void createDelayBuffer(double pSampleRate) override
+	void createDelayBuffer(float pSampleRate) override
 	{
 		currentSampleRate = pSampleRate;
 		samplesPerMsec = currentSampleRate / 1000.0;
@@ -301,7 +301,7 @@ public:
 	{
 		if (parameters.enableAPF == true)
 		{
-			double modValue = 0.0;
+			float modValue = 0.0;
 
 			if(apfModParameters.enableLFO == true)
 			{ 

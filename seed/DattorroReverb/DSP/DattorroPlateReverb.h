@@ -1,21 +1,20 @@
 #pragma once
 #include "APFstructures.h"
 #include "classicFilters.h"
-
+#include "../patch.h"
 struct ReverbControlParameters
 {
-	double mix;
-	double predelay;
-	double inputDiffusion1;
-	double inputDiffusion2;
+	float mix = 1.0f;
+	float predelay = 30.0f;
+	float inputDiffusion1 = 0.75f;
+	float inputDiffusion2 = 0.625f;
 
-	double decayDiffusion1;
-	double decayDiffusion2;
-	double decay;
+	float decayDiffusion1 = 0.7f;
+	float decayDiffusion2 = 0.5f;
+	float decay = 1.0f;
 
-	double damping;
-	double bandwidth;
-
+	float damping = 10.0f;
+	float bandwidth = 15000.0f;
 };
 
 struct ReverbStructureParameters
@@ -67,6 +66,17 @@ public:
 		// add additionnal control parameters here 
 	}
 
+	void updateParameters( Patch *patch)
+	{
+		// mix
+		controlParameters.mix = patch->mix;
+
+		// dampen 
+		controlParameters.damping = patch->dampen;
+
+		// decay
+		controlParameters.decay = patch->decay;
+	}
 	void updateParameters(ReverbControlParameters pControlParameters)
 	{
 		modulatedAPF1.reset(sampleRate);
@@ -104,7 +114,7 @@ public:
 		dampingLPF2.setCoefficients(controlParameters.damping, 1.0, sampleRate);
 	}
 
-	void reset(double pSampleRate)
+	void reset(float pSampleRate)
 	{
 		sampleRate = pSampleRate;
 
@@ -225,7 +235,7 @@ private:
 		return output;
 	}
 
-	double sampleRate;
+	float sampleRate;
 	ReverbControlParameters controlParameters;
 	ReverbStructureParameters structureParameters;
 
