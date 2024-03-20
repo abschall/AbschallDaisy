@@ -116,8 +116,8 @@ private:
     {
 
     {LAW_LINEAR, {0.0f, 1.0f}, false},   // ADC_CHANNEL_MIX
-    {LAW_DECIBELS, {10.0f,20000.0f},  false},   // ADC_CHANNEL_DAMPEN
-    {LAW_DECIBELS, {0.0f, 1.0f},  false},   // ADC_CHANNEL_DECAY
+    {LAW_LINEAR, {10.0f,15000.0f},  false},   // ADC_CHANNEL_DAMPEN
+    {LAW_LINEAR, {0.0f, 1.0f},  false},   // ADC_CHANNEL_DECAY
     };
 
 };

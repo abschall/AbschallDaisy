@@ -5,7 +5,7 @@
 struct ReverbControlParameters
 {
 	float mix = 1.0f;
-	float predelay = 30.0f;
+	float predelay = 50.0f;
 	float inputDiffusion1 = 0.75f;
 	float inputDiffusion2 = 0.625f;
 
@@ -13,14 +13,14 @@ struct ReverbControlParameters
 	float decayDiffusion2 = 0.5f;
 	float decay = 1.0f;
 
-	float damping = 10.0f;
+	float damping = 15000.0f;
 	float bandwidth = 15000.0f;
 };
 
 struct ReverbStructureParameters
 {
 	// predelay
-	delayLineParameters predelayParam = { 500.0, true };
+	delayLineParameters predelayParam = { 50.0, true };
 
 	// input diffusers
 	APFParameters inputDiffuser1Param = { 4.93, 0.75, true };
@@ -76,6 +76,9 @@ public:
 
 		// decay
 		controlParameters.decay = patch->decay;
+
+		dampingLPF1.setCoefficients(controlParameters.damping, 1.0, sampleRate);
+		dampingLPF2.setCoefficients(controlParameters.damping, 1.0, sampleRate);
 	}
 	void updateParameters(ReverbControlParameters pControlParameters)
 	{
@@ -143,8 +146,8 @@ public:
 		dampingLPF1.setFilterType(TYPE_LPF1);
 		dampingLPF2.setFilterType(TYPE_LPF1);
 		bandwidthLPF.	setCoefficients(20000.0, 1.0, sampleRate);
-		dampingLPF1.	setCoefficients(0.0, 1.0, sampleRate);
-		dampingLPF2.	setCoefficients(0.0, 1.0, sampleRate);
+		dampingLPF1.	setCoefficients(10000.0, 1.0, sampleRate);
+		dampingLPF2.	setCoefficients(10000.0, 1.0, sampleRate);
 
 
 		// create buffers

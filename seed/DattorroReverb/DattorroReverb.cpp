@@ -25,8 +25,9 @@ void Init()
     // These are separate to allow reconfiguration of any of the internal
     // components before initialization.
     hardware.Configure();
+	//hardware.SetAudioSampleRate(SaiHandle::Config::SampleRate::SAI_48KHZ);
     hardware.Init();
-    hardware.SetAudioBlockSize(4);
+    hardware.SetAudioBlockSize(32);
 	samplerate = hardware.AudioSampleRate();
 
 	ui.Init(&patch);

@@ -35,7 +35,7 @@ public:
         writeIndex = 0;
         wrapMask = bufferLength - 1;
         // create a new buffer
-        buffer.reset(new T[bufferLength]);
+       // buffer.reset(new T[bufferLength]);
     }
 
     void writeBuffer(T input)
@@ -77,6 +77,7 @@ public:
 
     // add fractional read Buffer method
     unique_ptr<T[]> buffer; //declaring an array of type T
+    //T buffer[512];
 private:
     // ========================================================================
     // Private members 
