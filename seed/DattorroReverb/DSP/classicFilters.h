@@ -6,21 +6,20 @@ using std::string;
 #include "../patch.h"
 using std::vector;
 
-const float PI = 3.14159265;
+using namespace std;
+
+enum FilterType{
+    TYPE_LPF1,
+    TYPE_LPF2,
+    TYPE_HPF1,
+    TYPE_HPF2,
+    NONE
+};
+
 // =============================================================================
 // ClassicFilters : public Biquad Class
 // used to implement every kind of second order filter, sample by sample reading
 // =============================================================================
-
-    // enum FilterType{
-    // TYPE_LPF1,
-    // TYPE_LPF2,
-    // TYPE_HPF1,
-    // TYPE_HPF2,
-    // NONE
-    // };
-    
-
 
 /// <summary>
 /// ClassicFilters class, used to implement the following filters :
