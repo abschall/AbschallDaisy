@@ -24,10 +24,9 @@ void Init()
 		// Configure and Initialize the Daisy Seed
     // These are separate to allow reconfiguration of any of the internal
     // components before initialization.
-    hardware.Configure();
-	//hardware.SetAudioSampleRate(SaiHandle::Config::SampleRate::SAI_48KHZ);
+
     hardware.Init();
-    hardware.SetAudioBlockSize(32);
+    hardware.SetAudioBlockSize(128);
 	samplerate = hardware.AudioSampleRate();
 
 	ui.Init(&patch);
@@ -58,7 +57,7 @@ void processAudioBlock(AudioHandle::InputBuffer in, AudioHandle::OutputBuffer ou
 		processedOut =  reverb.processAudioSample(rawIn);
 		//processedOut =  rawIn;
 		out[0][i] = processedOut[0];
-		out[1][i] = processedOut[1];
+		out[1][i] = processedOut[1];    
 
 	}
 }

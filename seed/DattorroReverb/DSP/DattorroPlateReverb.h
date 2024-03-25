@@ -217,21 +217,21 @@ public:
 private:
 	vector<float> readOutputTaps()
 	{
-		float yL = delayLine1.readDelayLine(394);
-		yL += delayLine1.readDelayLine(4401);
-		yL -= alternateAPF5.readDelayLine(2831);
-		yL += delayLine2.readDelayLine(2954);
-		yL -= delayLine3.readDelayLine(2945);
-		yL -= alternateAPF6.readDelayLine(277);
-		yL -= delayLine4.readDelayLine(1578);
+		float yL = delayLine1.readDelayLine(429);
+		yL += delayLine1.readDelayLine(4790);
+		yL -= alternateAPF5.readDelayLine(3081);
+		yL += delayLine2.readDelayLine(3213);
+		yL -= delayLine3.readDelayLine(3205);
+		yL -= alternateAPF6.readDelayLine(301);
+		yL -= delayLine4.readDelayLine(1717);
 
-		float yR = delayLine3.readDelayLine(522);
-		yR += delayLine3.readDelayLine(5368);
-		yR -= alternateAPF6.readDelayLine(1817);
-		yR += delayLine4.readDelayLine(3956);
-		yR -= delayLine1.readDelayLine(3124);
-		yR -= alternateAPF5.readDelayLine(496);
-		yR -= delayLine2.readDelayLine(179);
+		float yR = delayLine3.readDelayLine(568);
+		yR += delayLine3.readDelayLine(5842);
+		yR -= alternateAPF6.readDelayLine(1977);
+		yR += delayLine4.readDelayLine(4305);
+		yR -= delayLine1.readDelayLine(3400);
+		yR -= alternateAPF5.readDelayLine(540);
+		yR -= delayLine2.readDelayLine(192);
 
 		vector<float> output = { yL, yR };
 
