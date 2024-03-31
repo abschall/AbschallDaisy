@@ -14,7 +14,7 @@ struct ReverbControlParameters
 	float decay = 1.0f;
 
 	float damping = 15000.0f;
-	float bandwidth = 15000.0f;
+	float bandwidth = 8000.0f;
 };
 
 struct ReverbStructureParameters
@@ -23,10 +23,10 @@ struct ReverbStructureParameters
 	delayLineParameters predelayParam = { 50.0, true };
 
 	// input diffusers
-	APFParameters inputDiffuser1Param = { 4.93, 0.75, true };
-	APFParameters inputDiffuser2Param = { 3.6, 0.75, true };
-	APFParameters inputDiffuser3Param = { 12.7, 0.625, true };
-	APFParameters inputDiffuser4Param = { 9.3, 0.625, true };
+	APFParameters inputDiffuser1Param = { 4.93, -0.75, true };
+	APFParameters inputDiffuser2Param = { 3.6, -0.75, true };
+	APFParameters inputDiffuser3Param = { 12.7, -0.625, true };
+	APFParameters inputDiffuser4Param = { 9.3, -0.625, true };
 	
 	//modulated APF
 	APF_modulationParameters modulatedAPF1_lfoParam = { 1, 0.536, true };
@@ -145,7 +145,7 @@ public:
 		bandwidthLPF.setFilterType(TYPE_LPF1);
 		dampingLPF1.setFilterType(TYPE_LPF1);
 		dampingLPF2.setFilterType(TYPE_LPF1);
-		bandwidthLPF.	setCoefficients(20000.0, 1.0, sampleRate);
+		bandwidthLPF.	setCoefficients(8000.0, 1.0, sampleRate);
 		dampingLPF1.	setCoefficients(10000.0, 1.0, sampleRate);
 		dampingLPF2.	setCoefficients(10000.0, 1.0, sampleRate);
 
@@ -178,7 +178,7 @@ public:
 
 		output = predelayLine.processAudioSample(input);
 
-		output = bandwidthLPF.	processAudioSample(output);
+		output = bandwidthLPF.	processAudioSample(input);
 
 		output = inputDiffuser1.processAudioSample(output);
 		output = inputDiffuser2.processAudioSample(output);

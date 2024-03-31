@@ -75,7 +75,7 @@ public:
 protected:
 	delayLineParameters parameters;
 	float currentSampleRate;
-	DelayLine<float, 8192> del;
+	DelayLine<float, 7200> del;
 	float samplesPerMsec;
 };
 
@@ -152,7 +152,7 @@ protected:
 	float currentSampleRate;
 	float samplesPerMsec;
 private:
-	DelayLine<float, 2048> del;
+	DelayLine<float, 4280> del;
 };
 
 /// <summary>
@@ -180,7 +180,7 @@ public:
 
 	}
 private:
-	DelayLine<float, 2096> del;
+	DelayLine<float, 4280> del;
 };
 
 struct APF_modulationParameters
@@ -231,7 +231,7 @@ public:
 				auto modValue = outLfo.normalOutput * apfModParameters.excursion_samples;
 			}
 
-			auto ynD = del.Read(parameters.delayTime_samples + modValue);
+			auto ynD = del.Read(parameters.delayTime_samples /*+ modValue*/);
 			auto temp = inputXn + parameters.feedbackGain * ynD;
 			del.Write(temp);
 			auto yn = -parameters.feedbackGain * temp + ynD;
@@ -257,7 +257,7 @@ private:
 		apfModParameters.excursion_ms = pApfModParameters.excursion_ms;
 		apfModParameters.LFORate_Hz = pApfModParameters.LFORate_Hz;
 	}
-	DelayLine<float, 1024> del;
+	DelayLine<float, 1600> del;
 };
 
 struct CombFilterParameters
