@@ -7,7 +7,7 @@
 
 ## Daisy Seed projects 
 Abschall's Daisy Seed projects: 
-- [/NewExampleProject](seed/NewExampleProject) first simple Daisy Seed Project, which is a selection of embedded 2nd order Classic Filters ( based upon the biquad structure)
+- [/ClassicFilters](seed/ClassicFilters) first simple Daisy Seed Project, which is a selection of embedded 2nd order Classic Filters ( based upon the biquad structure)
 - [/DattorroReverb](seed/DattorroReverb) embedded Dattorro Reverb algorithm
 
 **/seed** host folder to personnal Daisy Seed projects.  
