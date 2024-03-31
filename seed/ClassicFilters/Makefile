@@ -1,8 +1,8 @@
 # Project Name
-TARGET = NewExampleProject
+TARGET = ClassicFilters
 
 # Sources
-CPP_SOURCES = NewExampleProject.cpp
+CPP_SOURCES = ClassicFilters.cpp
 
 # Library Locations
 LIBDAISY_DIR = ../../libDaisy
