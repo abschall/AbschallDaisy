@@ -1,0 +1,18 @@
+#N canvas 1125 191 1920 997 12;
+#X obj 183 202 output~;
+#X obj 305 115 vline~;
+#X msg 305 89 1 0 \, 0 0 1;
+#X obj 364 141 s bang;
+#X obj 364 115 bang;
+#X text 308 70 impulse response (1ms);
+#X obj 188 124 *~;
+#X obj 238 50 tgl 19 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 1;
+#X obj 176 43 adc~ 2;
+#X connect 1 0 0 0;
+#X connect 2 0 1 0;
+#X connect 2 0 4 0;
+#X connect 4 0 3 0;
+#X connect 6 0 0 0;
+#X connect 6 0 0 1;
+#X connect 7 0 6 1;
+#X connect 8 0 6 0;
